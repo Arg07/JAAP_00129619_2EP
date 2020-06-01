@@ -71,7 +71,7 @@ namespace Preparcial.Controlador
         {
             try
             {
-                ConexionBD.EjecutarComando("INSERT INTO INVENTARIO(nombreArticulo, descripcion, precio, stock)" +
+                ConexionBD.EjecutarComando("INSERT INTO INVENTARIO(nombreArt, descripcion, precio, stock)" +
                     $" VALUES('{nombre}', '{descripcion}', {precio}, {stock})");
 
                 MessageBox.Show("Se ha agregado el producto");
@@ -88,23 +88,45 @@ namespace Preparcial.Controlador
         // cambiar el tipo del parametro id que recibe a entero
         public static void EliminarProducto(int id)
         {
+            /* editar el metodo porque es necesario validar que si existe un pedido realizado con el articulo
+             que se desea eliminar entonces no se pueda eliminar el articulo porque lanza una excepcion
+             para eso cree una nueva consulta a Pedidos para verificar y luego valida si la consulta encuentra
+             registros con el id del articulo*/
+
+            DataTable pExisting = null;
             try
             {
-                ConexionBD.EjecutarComando($"DELETE FROM INVENTARIO WHERE idArticulo = {id}");
-
-                MessageBox.Show("Se ha eliminado el producto");
+                pExisting = ConexionBD.EjecutarConsulta($"SELECT FROM PEDIDO WHERE idArticulo = {id}");
             }
             catch (Exception ex)
             {
-                /* darle un uso a ex para conocer el error o excepcion sin mostrar 
-                                                detalles importantes del programa*/
                 MessageBox.Show("Ha ocurrido un error " + ex.Message);
             }
+            if (pExisting!=null)
+            {
+                try
+                {
+                    ConexionBD.EjecutarComando($"DELETE FROM INVENTARIO WHERE idArticulo = {id}");
+
+                    MessageBox.Show("Se ha eliminado el producto");
+                }
+                catch (Exception ex)
+                {
+                    /* darle un uso a ex para conocer el error o excepcion sin mostrar 
+                                                    detalles importantes del programa*/
+                    MessageBox.Show("Ha ocurrido un error " + ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ha ocurrido un error \n" +
+                    "No puede eliminar el articulo porque existen pedidos registrados de este articulo ");
+            }
+
         }
 
         // Metodo para actualizar stock de un producto
         // cambiar el tipo del parametro id y stock que recibe a entero
-
         public static void ActualizarProducto(int id, int stock)
         {
             try

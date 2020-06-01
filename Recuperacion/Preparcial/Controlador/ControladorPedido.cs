@@ -14,7 +14,7 @@ namespace Preparcial.Controlador
             try
             {
                 //salto de linea - buenas practicas
-                pedidos = ConexionBD.EjecutarConsulta("SELECT p.idPedido, i.nombreArticulo," +
+                pedidos = ConexionBD.EjecutarConsulta("SELECT p.idPedido, i.nombreArt," +
                                             " p.cantidad, i.precio, (i.precio * p.cantidad) AS total" +
                                             " FROM PEDIDO p, INVENTARIO i, USUARIO u" +
                                             " WHERE p.idArticulo = i.idArticulo" +
@@ -38,7 +38,7 @@ namespace Preparcial.Controlador
             try
             {
                 //salto de linea - buenas practicas
-                pedidos = ConexionBD.EjecutarConsulta("SELECT p.idPedido, i.nombreArticulo, " +
+                pedidos = ConexionBD.EjecutarConsulta("SELECT p.idPedido, i.nombreArt, " +
                                             "p.cantidad, i.precio, (i.precio * p.cantidad) AS total" +
                                             " FROM PEDIDO p, INVENTARIO i, USUARIO u" +
                                             " WHERE p.idArticulo = i.idArticulo" +

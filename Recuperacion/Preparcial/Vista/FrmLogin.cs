@@ -22,15 +22,17 @@ namespace Preparcial
 
             PoblarControlers();
         }
-        
+
         // Metodo para poblar el comboBox con todos los usuarios, asignando el value member y display member desde
         // las PROPIEDADES de la clase Usuario, deben ser publicas y llamarse igual para que funcione, ademas
         // primero se asigna el ValueMember, luego DisplayMember, y por ultimo el DataSource, sino tira excepcion
-        private void PoblarControlers()
+        // cambiar metodo a publico para poder actualizar el cmbUser desde FrmPassword al actualizar una contrasenia
+        public void PoblarControlers()
         {
             cmbUser.DataSource = null;
-            cmbUser.ValueMember = "Contrasenia";
-            cmbUser.DisplayMember = "NombreUsuario";
+            //cambiar el nombre correcto en el ValueMember contrasena en vez de contrasenia 
+            cmbUser.ValueMember = "Contrasena";
+            cmbUser.DisplayMember = "Nombre";
             cmbUser.DataSource = ControladorUsuario.GetUsuarios();
         }
 
@@ -52,10 +54,13 @@ namespace Preparcial
         }
 
         // EventHandler para invocar al form de actualizar contrasena
+        // cambiar frmPassword.Show(); por frmPassword.ShowDialog(); para poder actualizar el cmbUser al cerrar FrmPassword
+        // llamando el metodo de PoblarControles()
         private void BttnUpdatePassword_Click(object sender, EventArgs e)
         {
             FrmPassword frmPassword = new FrmPassword();
-            frmPassword.Show();
+            frmPassword.ShowDialog();
+            PoblarControlers();
         }
     }
 }

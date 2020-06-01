@@ -33,8 +33,9 @@ namespace Preparcial.Vista
             // asignar primero el ValueMember, luego DisplayMember, y por ultimo el DataSource
             comboBox1.DataSource = null;
             comboBox1.ValueMember = "Contrasena";
-            comboBox1.DisplayMember = "NombreUsuario";
+            comboBox1.DisplayMember = "Nombre";
             comboBox1.DataSource = ControladorUsuario.GetUsuarios();
+            
         }
 
         private void Button1_Click(object sender, EventArgs e)

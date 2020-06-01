@@ -31,7 +31,7 @@ namespace Preparcial.Controlador
                 Usuario u = new Usuario
                 {
                     IdUsuario = Convert.ToInt32(dr[0].ToString()),
-                    NombreUsuario = dr[1].ToString(),
+                    Nombre = dr[1].ToString(),
                     Contrasena = dr[2].ToString(),
                     Admin = Convert.ToBoolean(dr[3].ToString())
                 };
@@ -80,7 +80,7 @@ namespace Preparcial.Controlador
         {
             try
             {
-                ConexionBD.EjecutarComando("INSERT INTO USUARIO(nombreUsuario, contrasenia, tipo)" +
+                ConexionBD.EjecutarComando("INSERT INTO USUARIO(nombre, contrasenia, tipo)" +
                     $" VALUES('{usuario}', '{usuario}', false)");
 
                 MessageBox.Show("Se ha agregado el nuevo usuario, contrasenia igual al nombre");
